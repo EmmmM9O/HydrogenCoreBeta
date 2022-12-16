@@ -29,9 +29,10 @@ public class TopBlock extends Block {
 
             for (var i:tops){
                 var len=Math.sqrt((x-this.x)*(x-this.x)+(y-this.y)*(y-this.y));
+                Log.info(len);
                 if(len<=5.5d){
                     Log.info(i.name);
-                    return false;
+                    return true;
                 }
             }
             return false;
