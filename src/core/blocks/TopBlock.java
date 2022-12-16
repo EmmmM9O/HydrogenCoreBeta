@@ -28,7 +28,7 @@ public class TopBlock extends Block {
         public boolean onConfigureTapped(float x, float y) {
 
             for (var i:tops){
-                var len=Math.sqrt((x-this.x)*(x-this.x)+(y-this.y)*(y-this.y));
+                var len=Math.sqrt((x-this.x+i.x*8f)*(x-this.x+i.x*8f)+(y-this.y+i.y*8f)*(y-this.y+i.y*8f));
                 Log.info(len);
                 if(len<=5.5d){
                     Log.info(i.name);
