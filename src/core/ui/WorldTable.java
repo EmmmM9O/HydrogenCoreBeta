@@ -9,7 +9,7 @@ import arc.scene.ui.layout.Table;
 
 public class WorldTable {
     public boolean showB=true;
-    public Table table;
+    public Table table=new Table();
 
     public void MoveTo(float x,float y){
         Vec2 pos = Core.input.mouseScreen(x,y);
