@@ -1,15 +1,26 @@
 package core.blocks;
 
 import arc.graphics.Color;
+
 import arc.util.Log;
 import arc.util.Nullable;
 import core.Top;
+
+import core.ui.tables.ItemSeletors;
+import mindustry.content.Items;
+import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
+import mindustry.type.Item;
 import mindustry.world.Block;
+import mindustry.world.Tile;
+
+import java.util.Vector;
+
 
 public class TopBlock extends Block {
+
     public Top[] tops={new Top(0,1,"up"),new Top(0,-1,"down")
     ,new Top(1,0,"right"),new Top(-1,0,"left")};
 
@@ -19,6 +30,22 @@ public class TopBlock extends Block {
         update=true;
     }
     public class TopBuilding extends Building {
+        @Override
+        public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
+            TopList.add(Items.coal);
+            TopList.add(Items.copper);
+            return super.init(tile, team, shouldAdd, rotation);
+        }
+
+        public Vector<Item> TopList=new Vector<>();
+
+       public ItemSeletors TopUi=new ItemSeletors(){
+           @Override
+           public void chooseRun(Item item) {
+
+               super.chooseRun(item);
+           }
+       };
         @Nullable
         public Top nowTop;
         @Override
@@ -46,10 +73,15 @@ public class TopBlock extends Block {
                 if(len<=5.5d){
                     nowTop=i;
                     Log.info(i.name);
+                    TopUi.list=TopList;
+                    TopUi.showAt(x-16f,y);
+                    TopUi.showB=true;
                     return true;
                 }
             }
+            TopUi.showB=false;
             return false;
         }
+
     }
 }
