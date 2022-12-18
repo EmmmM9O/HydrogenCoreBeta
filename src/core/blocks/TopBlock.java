@@ -1,7 +1,10 @@
 package core.blocks;
 
+import arc.Core;
 import arc.graphics.Color;
 
+import arc.math.geom.Vec2;
+import arc.scene.ui.layout.Table;
 import arc.util.Log;
 import arc.util.Nullable;
 import core.Top;
@@ -21,34 +24,69 @@ import java.util.Vector;
 
 public class TopBlock extends Block {
 
-    public Top[] tops={new Top(0,1,"up"),new Top(0,-1,"down")
-    ,new Top(1,0,"right"),new Top(-1,0,"left")};
 
+    public Vector<Top<Item>> tops=new Vector<>();
     public TopBlock(String name){
+
         super(name);
         configurable=true;
         update=true;
+
+        tops.add(new Top<>(0,1,"up"));
+        tops.add(new Top<>(0,-1,"down"));
+        tops.add(new Top<>(1,0,"right"));
+        tops.add(new Top<>(-1,0,"left"));
+
     }
     public class TopBuilding extends Building {
+        @Override
+        public void updateTableAlign(Table table) {
+            Vec2 pos;
+            if(nowTop==null) pos = Core.input.mouseScreen(this.x, this.y);
+            else pos=Core.input.mouseScreen(this.x+ nowTop.x*-10f,this.y+ nowTop.y*8f);
+            table.setPosition(pos.x, pos.y, 2);
+        }
+
         @Override
         public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
             TopList.add(Items.coal);
             TopList.add(Items.copper);
-            TopUi.build();
             return super.init(tile, team, shouldAdd, rotation);
+        }
+
+        @Override
+        public void buildConfiguration(Table table) {
+            TopUi.draw(table);
         }
 
         public Vector<Item> TopList=new Vector<>();
 
        public ItemSeletors TopUi=new ItemSeletors(){
            @Override
-           public void chooseRun(Item item) {
+           public void draw(Table table) {
+               table.add("Item Seletors");
+               Log.info("draw");
+               table.pane((t ->{
+                   int row=0;
+                   for (var i:list){
+                       Log.info("load");
+                       row++;
+                       t.image(i.fullIcon);
+                       if(nowTop.data==null||nowTop.data!=i) t.button("X",()->chooseRun(i));
+                       else t.button("O",()->nowTop=null);
+                       if(row>=7) t.row();
+                   }
+               }));
+           }
 
+           @Override
+           public void chooseRun(Item item) {
+               nowTop.data=item;
                super.chooseRun(item);
            }
        };
         @Nullable
-        public Top nowTop;
+        public Top<Item> nowTop;
         @Override
         public void drawConfigure() {
             super.drawConfigure();
@@ -75,12 +113,9 @@ public class TopBlock extends Block {
                     nowTop=i;
                     Log.info(i.name);
                     TopUi.list=TopList;
-                    TopUi.showAt(x-16f,y);
-                    TopUi.showB=true;
                     return true;
                 }
             }
-            TopUi.showB=false;
             return false;
         }
 

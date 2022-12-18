@@ -1,5 +1,6 @@
 package core.ui.tables;
 
+import arc.scene.ui.layout.Table;
 import core.ui.WorldTable;
 
 import mindustry.type.Item;
@@ -18,7 +19,7 @@ public class ItemSeletors extends WorldTable {
 
     @Override
 
-    public void draw(){
+    public void draw(Table table){
         table.add("Item Seletors");
 
         Log.info("draw");
