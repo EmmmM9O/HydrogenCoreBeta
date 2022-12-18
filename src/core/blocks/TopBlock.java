@@ -69,6 +69,7 @@ public class TopBlock extends Block {
                table.pane((t ->{
                    t.add("Item");
                    int row=0;
+                   if(nowTop==null) return;
                    for (var i:TopList){
                        Log.info("load");
                        row++;
