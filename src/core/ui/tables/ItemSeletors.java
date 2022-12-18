@@ -19,6 +19,7 @@ public class ItemSeletors extends WorldTable {
     @Override
 
     public void draw(){
+        table.add("Item Seletors");
 
         Log.info("draw");
 
@@ -27,6 +28,7 @@ public class ItemSeletors extends WorldTable {
             int row=0;
 
             for (var i:list){
+                Log.info("load");
 
                 row++;
 
