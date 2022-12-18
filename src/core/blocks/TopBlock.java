@@ -67,8 +67,9 @@ public class TopBlock extends Block {
                table.add("Item Seletors");
                Log.info("draw");
                table.pane((t ->{
+                   t.add("Item");
                    int row=0;
-                   for (var i:list){
+                   for (var i:TopList){
                        Log.info("load");
                        row++;
                        t.image(i.fullIcon);
