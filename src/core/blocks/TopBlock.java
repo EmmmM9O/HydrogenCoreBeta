@@ -34,6 +34,7 @@ public class TopBlock extends Block {
         public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
             TopList.add(Items.coal);
             TopList.add(Items.copper);
+            TopUi.build();
             return super.init(tile, team, shouldAdd, rotation);
         }
 
