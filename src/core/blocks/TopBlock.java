@@ -51,12 +51,13 @@ public class TopBlock extends Block {
         public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
             TopList.add(Items.coal);
             TopList.add(Items.copper);
+            TopUi.list=TopList;
             return super.init(tile, team, shouldAdd, rotation);
         }
 
         @Override
         public void buildConfiguration(Table table) {
-            TopUi.draw(table);
+            TopUi.get(table);
         }
 
         public Vector<Item> TopList=new Vector<>();
@@ -96,7 +97,6 @@ public class TopBlock extends Block {
                 if(len<=5.5d){
                     nowTop=i;
                     Log.info(i.name);
-                    TopUi.list=TopList;
                     return true;
                 }
             }

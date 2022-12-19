@@ -5,12 +5,10 @@ import core.ui.WorldTable;
 
 import mindustry.type.Item;
 
-import arc.util.Log;
-
 import java.util.Vector;
 
 public class ItemSeletors extends WorldTable {
-
+    public String name="ItemSeletors";
     public Vector<Item> list=new Vector<>();
 
     public void chooseRun(Item item){
@@ -20,19 +18,10 @@ public class ItemSeletors extends WorldTable {
     @Override
 
     public void draw(Table table){
-        table.add("Item Seletors");
-        table.pane((t ->{
-            int row=0;
-            for (var i:list){
-                Log.info(i);
-                row++;
-                t.image(i.fullIcon);
-                t.button("X",()->chooseRun(i));
-                if(row>=7) t.row();
-            }
-
-        }));
-
+        for (var i:list){
+            table.image(i.fullIcon).size(25f,25f);
+            table.button("X",()->chooseRun(i)).size(25f,25f);
+        }
     }
 
 }
