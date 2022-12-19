@@ -21,24 +21,14 @@ public class ItemSeletors extends WorldTable {
 
     public void draw(Table table){
         table.add("Item Seletors");
-
-        Log.info("draw");
-
         table.pane((t ->{
-
             int row=0;
-
             for (var i:list){
-                Log.info("load");
-
+                Log.info(i);
                 row++;
-
                 t.image(i.fullIcon);
-
                 t.button("X",()->chooseRun(i));
-
                 if(row>=7) t.row();
-
             }
 
         }));

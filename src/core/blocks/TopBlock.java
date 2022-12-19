@@ -63,24 +63,8 @@ public class TopBlock extends Block {
 
        public ItemSeletors TopUi=new ItemSeletors(){
            @Override
-           public void draw(Table table) {
-               table.add("Item Seletors");
-               Log.info("draw");
-               table.pane((t ->{
-                   int row=0;
-                   for (var i:list){
-                       Log.info("load");
-                       row++;
-                       t.image(i.fullIcon);
-                       if(nowTop.data==null||nowTop.data!=i) t.button("X",()->chooseRun(i));
-                       else t.button("O",()->nowTop=null);
-                       if(row>=7) t.row();
-                   }
-               }));
-           }
-
-           @Override
            public void chooseRun(Item item) {
+               if (nowTop==null) return;
                nowTop.data=item;
                super.chooseRun(item);
            }
